@@ -1,13 +1,18 @@
-import 'dotenv/config'
-import express from "express";
+import dotenv from "dotenv"
+import { app } from "./app.js"
+import connectDB from "./db/index.js"
 
-const app = express()
-const port = process.env.PORT || 3000
+dotenv.config({path: "./.env"})
 
-app.get("/", (req, res) => {
-    res.status(200).send(`<h1>Hello This is our Home Page of MyStreamTube App</h1>`)
+const PORT = process.env.PORT || 3000
+
+connectDB()
+.then(() => {
+    app.listen(PORT, () => {
+        console.log(`Your Server is Runnig on PORT http://localhost:${PORT}`);
+    })
 })
-
-app.listen(port, () => {
-    console.log(`Your Server is Runnig on Port http://localhost:${port}`);
+.catch((error) => {
+    console.log("MongoDB connection error", error);
+    
 })
