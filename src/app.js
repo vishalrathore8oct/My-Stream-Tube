@@ -20,6 +20,11 @@ app.use(express.static("public"))
 // Cookie-parser middleware to parse cookies
 app.use(cookieParser())
 
+// Import the routes
+import healthCheckRouter from "./routes/healthCheck.routes.js";
+
+// Use the routes
+app.use("/api/v1/healthcheck", healthCheckRouter)
 
 // Export the express app
 export { app }
